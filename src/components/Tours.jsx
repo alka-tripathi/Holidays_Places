@@ -1,11 +1,19 @@
 import Card from '../components/Card';
-function Tours({ tours }) {
+// import './Tours.css';
+
+function Tours({ tours, removeTour }) {
   return (
     <div>
-      <h1>Plan with LOVE</h1>
-      <div>
+      <h1 className="plan">Plan with LOVE 💌</h1>
+      <div className="tours-container">
         {tours.map((t) => {
-          return <Card {...t}></Card>; //object is copy passed  //clooning the object
+          return (
+            <Card
+              key={t.id}
+              {...t}
+              removeTour={removeTour}
+            ></Card>
+          ); //object is copy passed  //clooning the object
         })}
       </div>
     </div>

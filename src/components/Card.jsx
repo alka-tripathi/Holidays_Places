@@ -1,31 +1,45 @@
 import { useState } from 'react';
+import './Card.css';
 
-function Card({ t }) {
-  const [readmore, setreadmore] = useState(false);
+function Card({ id, name, info, image, price, removeTour }) {
+  const [readmore, setReadmore] = useState(false);
 
-  const description = `${t.info.substring(0, 200)}....`;
+  // Dynamic description
+  const isLongText = info.length > 200;
+  const description = readmore ? info : `${info.substring(0, 200)}...`;
+
+  function readmoreHandler() {
+    setReadmore(!readmore);
+  }
 
   return (
     <div className="card">
       <img
-        src={t.image}
+        src={image}
+        alt={name}
         className="image"
-      ></img>
-      <div className="tourDetails">
-        <h2 className="tour-name">{t.name}</h2>
-        <h4 className="tour-price">{t.price}</h4>
-      </div>
+      />
+      <div className="tour-info">
+        <div className="tourDetails">
+          <h2 className="tour-name">{name}</h2>
+          <h4 className="tour-price">{price}</h4>
+        </div>
 
-      <div className="description">
-        {description}
-        <span
-          className="read-more"
-          onClick={readmoreHandler}
-        >
-          {readmore ? 'showless' : 'read More'}
-        </span>
+        <div className="description">
+          {description}
+          <span
+            className="read-more"
+            onClick={readmoreHandler}
+            style={{ cursor: 'pointer', color: '#ff5a5f' }}
+          >
+            {readmore ? ' Show Less' : ' Read More'}
+          </span>
+        </div>
+
+        <button onClick={() => removeTour(id)}>Not Interested</button>
       </div>
     </div>
   );
 }
+
 export default Card;
